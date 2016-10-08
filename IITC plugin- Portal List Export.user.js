@@ -22,7 +22,7 @@ function wrapper() {
     var self = window.plugin.listexport;
     // check all portals in range, show result dialog
     self.gen = function gen(hit) {
-        var o = ["Portal,Latitude,Longitude,Team,Level,Days Neutral,Health,Resos,Links,Fields,Destroy AP,Deploy AP,URL"];
+        var o = ["Portal,Latitude,Longitude,Team,Level,Days Neutral,Health,Resos,Links,Fields,Destroy AP,Deploy AP"];
         for (var x in window.portals) {
             var p = window.portals[x];
             var b = window.map.getBounds();
