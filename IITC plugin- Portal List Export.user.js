@@ -2,7 +2,7 @@
 // @id             iitc-plugin-listexport@RogueVirus
 // @name           IITC plugin: Portal List Export
 // @category       Info
-// @version        0.0.0.1
+// @version        0.0.0.2
 // @namespace      https://github.com/jonatkins/ingress-intel-total-conversion
 // @description    Exports a CSV list of portals.
 // @include        https://www.ingress.com/intel*
