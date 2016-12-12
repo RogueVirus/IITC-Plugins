@@ -43,8 +43,12 @@ window.plugin.checkpointStats.CYCLE = 7*25*60*60; //7 25 hour 'days' per cycle
 
 
 window.plugin.checkpointStats.setup  = function() {
-
-  var style = '<style type="text/css">'
+  
+   if(window.useAndroidPanes()) {
+    android.addPane("plugin-checkpointStats", "Checkpoint Stats", "ic_action_paste");
+    addHook("mapDataRefreshStart", window.plugin.checkpointStats.fetchRegionScoreboard);
+  } else {
+    var style = '<style type="text/css">'
             + '.regionName { margin: 0; text-align: center; }'
             + '.scorebarHeader { margin: 25px 0 0 0; font-size: 12px; color: white; }'
             + '.scorebarHeader.nopad { margin: 3px 0 0 0; }'
@@ -60,6 +64,13 @@ window.plugin.checkpointStats.setup  = function() {
   $('#checkpoint_stats_previous').css({'color':'#ffce00'});
 
   window.addHook('mapDataRefreshStart', window.plugin.checkpointStats.fetchRegionScoreboard);
+  }
+
+  $("<style>")
+    .prop("type", "text/css")
+    .html("#portalslist.mobile {\n  background: transparent;\n  border: 0 none !important;\n  height: 100% !important;\n  width: 100% !important;\n  left: 0 !important;\n  top: 0 !important;\n  position: absolute;\n  overflow: auto;\n}\n\n#portalslist table {\n  margin-top: 5px;\n  border-collapse: collapse;\n  empty-cells: show;\n  width: 100%;\n  clear: both;\n}\n\n#portalslist table td, #portalslist table th {\n  background-color: #1b415e;\n  border-bottom: 1px solid #0b314e;\n  color: white;\n  padding: 3px;\n}\n\n#portalslist table th {\n  text-align: center;\n}\n\n#portalslist table .alignR {\n  text-align: right;\n}\n\n#portalslist table.portals td {\n  white-space: nowrap;\n}\n\n#portalslist table th.sortable {\n  cursor: pointer;\n}\n\n#portalslist table .portalTitle {\n  min-width: 120px !important;\n  max-width: 240px !important;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n\n#portalslist .sorted {\n  color: #FFCE00;\n}\n\n#portalslist table.filter {\n  table-layout: fixed;\n  cursor: pointer;\n  border-collapse: separate;\n  border-spacing: 1px;\n}\n\n#portalslist table.filter th {\n  text-align: left;\n  padding-left: 0.3em;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n#portalslist table.filter td {\n  text-align: right;\n  padding-right: 0.3em;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n#portalslist .filterNeu {\n  background-color: #666;\n}\n\n#portalslist table tr.res td, #portalslist .filterRes {\n  background-color: #005684;\n}\n\n#portalslist table tr.enl td, #portalslist .filterEnl {\n  background-color: #017f01;\n}\n\n#portalslist table tr.none td {\n  background-color: #000;\n}\n\n#portalslist .disclaimer {\n  margin-top: 10px;\n  font-size: 10px;\n}\n\n#portalslist.mobile table.filter tr {\n  display: block;\n  text-align: center;\n}\n#portalslist.mobile table.filter th, #portalslist.mobile table.filter td {\n  display: inline-block;\n  width: 22%;\n}\n\n")
+    .appendTo("head");
+  
 };
 
 
@@ -219,5 +230,3 @@ var info = {};
 if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) info.script = { version: GM_info.script.version, name: GM_info.script.name, description: GM_info.script.description };
 script.appendChild(document.createTextNode('('+ wrapper +')('+JSON.stringify(info)+');'));
 (document.body || document.head || document.documentElement).appendChild(script);
-
-
